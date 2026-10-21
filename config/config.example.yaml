@@ -1,0 +1,20 @@
+# Example configuration. Copy to config/config.local.yaml and edit.
+# config.local.yaml is not committed to git.
+source:
+  type: video           # images | video (rtsp: planned extension)
+  path: data/flights/flight_03.mp4
+telemetry:
+  type: auto            # auto | exif | dji_srt
+camera:
+  sensor_width_mm: 17.3
+  focal_length_mm: 12.29
+  image_width_px: 5280
+  image_height_px: 3956
+detection:
+  weights: models/yolo-sar-rgb-s.pt
+  confidence_threshold: 0.35
+  tiling: {enabled: true, tile: 640, overlap: 0.2}
+storage:
+  db_path: data/operations.sqlite
+maps:
+  offline_tiles: data/maps/region.mbtiles

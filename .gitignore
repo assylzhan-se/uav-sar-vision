@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data and models (large files are not stored in git)
+data/
+datasets/
+runs/
+*.pt
+*.onnx
+*.engine
+*.mp4
+*.mov
+*.mbtiles
+reports/raw/
+
+# Secrets and local settings
+.env
+config/*.local.yaml
+*.key
+
+# Operation databases (may contain personal data)
+*.sqlite
+*.db
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
