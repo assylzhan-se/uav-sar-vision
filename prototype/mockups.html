@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>SAR-Vision mockups</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DejaVu Sans",Arial,sans-serif;background:#ccc;color:#1d2330;font-size:13px}
+.screen{width:1280px;height:760px;background:#f3f4f6;display:flex;flex-direction:column;margin:0 0 40px}
+.top{height:48px;background:#1d2a3a;color:#fff;display:flex;align-items:center;padding:0 16px;gap:18px}
+.top b{font-size:16px}.pill{background:#2f4157;border-radius:12px;padding:4px 10px;font-size:12px}
+.live{background:#c62828}.sp{flex:1}
+.main{flex:1;display:flex;gap:10px;padding:10px;min-height:0}
+.panel{background:#fff;border:1px solid #d5d9e0;border-radius:6px;display:flex;flex-direction:column;min-height:0}
+.ph{padding:8px 12px;border-bottom:1px solid #e3e6eb;font-weight:bold;display:flex;gap:8px;align-items:center}
+.video{flex:1.6;position:relative}
+.frame{flex:1;margin:10px;border-radius:4px;position:relative;overflow:hidden;
+ background:radial-gradient(circle at 30% 40%,#7c8f5a 0,#5c6e43 30%,transparent 31%),
+ radial-gradient(circle at 70% 70%,#6d7d4c 0,#55663d 25%,transparent 26%),
+ linear-gradient(135deg,#8a9a64,#a39f73 40%,#7b8d58 70%,#94a06c)}
+.tree{position:absolute;border-radius:50%;background:#3f5530}
+.bb{position:absolute;border:2px solid #ff3b30;}
+.bb span{position:absolute;top:-18px;left:-2px;background:#ff3b30;color:#fff;font-size:11px;padding:1px 4px;white-space:nowrap}
+.bb.ok{border-color:#00c853}.bb.ok span{background:#00a344}
+.person{position:absolute;width:6px;height:12px;background:#d84b2a;border-radius:3px}
+.hud{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:6px 8px;font-size:11px;border-radius:3px;line-height:1.5}
+.ctrl{display:flex;gap:8px;padding:0 10px 10px;align-items:center}
+.btn{border:1px solid #c4c9d2;background:#fff;border-radius:4px;padding:6px 12px;font-size:12px}
+.btn.p{background:#1565c0;color:#fff;border-color:#1565c0}.btn.g{background:#2e7d32;color:#fff;border-color:#2e7d32}.btn.r{background:#c62828;color:#fff;border-color:#c62828}
+.side{flex:1;display:flex;flex-direction:column;gap:10px}
+.map{flex:1;margin:8px;border-radius:4px;position:relative;
+ background:linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px,#e8efe0}
+.road{position:absolute;height:6px;background:#f4d47c;border:1px solid #d8b24d}
+.river{position:absolute;height:14px;background:#9cc6e8;border-radius:7px}
+.path{position:absolute;border:2px dashed #1565c0}
+.pin{position:absolute;width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.pin.n{background:#ff3b30}.pin.c{background:#00a344}.pin.x{background:#9e9e9e}
+.drone{position:absolute;font-size:16px}
+.list{flex:1;overflow:hidden}
+.item{display:flex;gap:8px;padding:7px 10px;border-bottom:1px solid #eef0f3;align-items:center}
+.item.sel{background:#fff4e5}
+.th{width:44px;height:44px;border-radius:3px;background:linear-gradient(135deg,#7b8d58,#a39f73);position:relative;flex:none}
+.th:after{content:"";position:absolute;left:19px;top:14px;width:6px;height:14px;background:#d84b2a;border-radius:3px}
+.th.ir{background:#222}.th.ir:after{background:#fff;box-shadow:0 0 6px #fff}
+.meta{flex:1;line-height:1.45}.meta small{color:#5f6878}
+.tag{font-size:11px;padding:2px 6px;border-radius:8px}
+.tag.n{background:#ffe1df;color:#b71c1c}.tag.c{background:#dff5e3;color:#1b5e20}.tag.x{background:#eceff1;color:#546e7a}
+.alert{position:absolute;top:60px;right:20px;width:300px;background:#fff;border-left:5px solid #ff3b30;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:10px 12px;border-radius:4px;line-height:1.5}
+.cap{font-size:20px;font-weight:bold;padding:14px 0 8px;color:#222}
+.big{flex:1;margin:10px;border-radius:4px;position:relative;background:linear-gradient(135deg,#8a9a64,#a39f73 40%,#7b8d58 70%,#94a06c)}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 10px;padding:12px;line-height:1.4}
+.kv div:nth-child(odd){color:#5f6878}
+.field{padding:8px 12px}.field label{display:block;color:#5f6878;margin-bottom:4px}
+.slider{height:6px;background:#dde3ea;border-radius:3px;position:relative}.slider i{position:absolute;left:0;top:0;height:6px;width:35%;background:#1565c0;border-radius:3px}
+.slider b{position:absolute;left:35%;top:-5px;width:16px;height:16px;border-radius:50%;background:#1565c0;margin-left:-8px}
+.inp{border:1px solid #c4c9d2;border-radius:4px;padding:6px 8px;background:#fff}
+table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #e3e6eb;padding:6px 10px;text-align:left}th{background:#f7f8fa}
+</style></head><body>
+
+<!-- SCREEN 1: main operator view -->
+<div class="screen" id="s1">
+ <div class="top"><b>SAR-Vision</b><span class="pill">Operation: Sector B (demo data)</span>
+  <span class="pill">Source: flight_03.mp4</span><span class="pill">Model: RGB</span><span class="sp"></span>
+  <span>Processing: 63%</span><span class="pill">Offline mode</span></div>
+ <div class="main">
+  <div class="panel video"><div class="ph">UAV frame <span class="sp"></span><small>Confidence threshold 0.35</small></div>
+   <div class="frame">
+    <div class="tree" style="left:120px;top:80px;width:70px;height:70px"></div>
+    <div class="tree" style="left:520px;top:300px;width:90px;height:90px"></div>
+    <div class="tree" style="left:610px;top:60px;width:60px;height:60px"></div>
+    <div class="person" style="left:338px;top:208px"></div>
+    <div class="bb" style="left:326px;top:198px;width:30px;height:32px"><span>person 0.81 · #17</span></div>
+    <div class="person" style="left:612px;top:418px;transform:rotate(80deg)"></div>
+    <div class="bb ok" style="left:600px;top:410px;width:30px;height:28px"><span>#15</span></div>
+    <div class="hud">UAV 44.8521, 65.5024 · Alt. 52 m · Yaw 118°<br>Gimbal −90° · 18:42:07</div>
+   </div>
+   <div class="ctrl"><span class="btn">Pause</span><span class="btn">Previous</span><span class="btn">Tiling: on</span><span class="sp"></span><span class="btn r">Reject #17</span><span class="btn g">Confirm #17</span></div>
+  </div>
+  <div class="side">
+   <div class="panel" style="flex:1.1"><div class="ph">Map</div>
+    <div class="map">
+     <div class="river" style="left:-10px;top:150px;width:460px;transform:rotate(-12deg)"></div>
+     <div class="road" style="left:20px;top:40px;width:400px;transform:rotate(8deg)"></div>
+     <div class="path" style="left:60px;top:60px;width:300px;height:160px"></div>
+     
+     <div class="pin n" style="left:190px;top:90px"></div>
+     <div class="pin c" style="left:300px;top:180px"></div>
+     <div class="pin x" style="left:110px;top:200px"></div>
+    </div></div>
+   <div class="panel list"><div class="ph">Detections <span class="sp"></span><small>2 new · 1 confirmed · 1 rejected</small></div>
+    <div class="item sel"><div class="th"></div><div class="meta"><b>#17</b> · 0.81 · RGB<br><small>44.85203, 65.50311 · 18:42:07</small></div><span class="tag n">new</span></div>
+    <div class="item"><div class="th"></div><div class="meta"><b>#16</b> · 0.64 · RGB<br><small>44.85117, 65.50102 · 18:40:51</small></div><span class="tag n">new</span></div>
+    <div class="item"><div class="th"></div><div class="meta"><b>#15</b> · 0.92 · RGB<br><small>44.84990, 65.50477 · 18:38:12</small></div><span class="tag c">confirmed</span></div>
+    <div class="item"><div class="th"></div><div class="meta"><b>#14</b> · 0.41 · RGB<br><small>44.84862, 65.49920 · 18:35:30</small></div><span class="tag x">rejected</span></div>
+   </div>
+  </div>
+ </div>
+ <div class="alert"><b>Possible person detected (#17)</b><br>Confidence 0.81 · 44.85203, 65.50311<br><span style="color:#5f6878">Review the frame before confirming</span></div>
+</div>
+
+<!-- SCREEN 2: detection review -->
+<div class="screen" id="s2">
+ <div class="top"><b>SAR-Vision</b><span class="pill">Detection #17</span><span class="sp"></span><span class="btn" style="color:#1d2330">Back to operation</span></div>
+ <div class="main">
+  <div class="panel" style="flex:1.6"><div class="ph">Frame 18:42:07 (zoom ×4) <span class="sp"></span><span class="btn">Previous frame</span><span class="btn">Next frame</span></div>
+   <div class="big">
+     <div class="tree" style="left:60px;top:40px;width:200px;height:200px"></div>
+     <div style="position:absolute;left:400px;top:230px;width:30px;height:70px;background:#d84b2a;border-radius:14px"></div>
+     <div style="position:absolute;left:404px;top:205px;width:22px;height:22px;background:#e0b48a;border-radius:50%"></div>
+     <div class="bb" style="left:385px;top:195px;width:60px;height:115px"><span>person 0.81</span></div>
+   </div></div>
+  <div class="side"><div class="panel" style="flex:1"><div class="ph">Details</div>
+   <div class="kv"><div>ID</div><div>#17</div><div>Model</div><div>RGB</div><div>Confidence</div><div>0.81</div>
+   <div>Estimated position</div><div>44.85203, 65.50311</div><div>Assumptions</div><div>Nadir camera, flat terrain</div>
+   <div>Time</div><div>21.10.2026 18:42:07</div><div>UAV altitude</div><div>52 m (relative to take-off)</div><div>Yaw / gimbal pitch</div><div>118° / −90°</div>
+   <div>Source file</div><div>flight_03.mp4</div></div>
+   <div class="field"><label>Operator note</label><div class="inp" style="height:60px">Person in red jacket near tree line</div></div>
+   <div class="ctrl" style="padding:12px"><span class="btn r">Reject (false alarm)</span><span class="sp"></span><span class="btn">Copy coordinates</span><span class="btn g">Confirm</span></div>
+  </div></div>
+ </div>
+</div>
+
+<!-- SCREEN 3: settings & export -->
+<div class="screen" id="s3">
+ <div class="top"><b>SAR-Vision</b><span class="pill">New operation / Export</span></div>
+ <div class="main">
+  <div class="panel" style="flex:1"><div class="ph">1. Input and settings</div>
+   <div class="field"><label>Operation name</label><div class="inp">Sector B (demo data)</div></div>
+   <div class="field"><label>Input</label><div class="inp">○ Image folder &nbsp; ◉ Video file: D:/flights/flight_03.mp4 &nbsp; ○ Live stream (planned)</div></div>
+   <div class="field"><label>Telemetry</label><div class="inp">◉ Auto-detect (EXIF/XMP or DJI SRT file) &nbsp; ○ None (no geolocation)</div></div>
+   <div class="field"><label>Detection model</label><div class="inp">RGB person model (yolo-sar-rgb-s) ▾</div></div>
+   <div class="field"><label>Confidence threshold: 0.35 (lower = more detections and more false alarms)</label><div class="slider"><i></i><b></b></div></div>
+   <div class="field"><label>Tiling for small objects (SAHI)</label><div class="inp">☑ on, tile 640×640, overlap 20%</div></div>
+   <div class="field"><label>Offline map</label><div class="inp">region.mbtiles (loaded)</div></div>
+   <div class="ctrl" style="padding:12px"><span class="sp"></span><span class="btn p">Start detection</span></div>
+  </div>
+  <div class="panel" style="flex:1"><div class="ph">2. Export results</div>
+   <table><tr><th>ID</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Conf.</th><th>Status</th></tr>
+   <tr><td>#15</td><td>18:38:12</td><td>44.84990</td><td>65.50477</td><td>0.92</td><td><span class="tag c">confirmed</span></td></tr>
+   <tr><td>#17</td><td>18:42:07</td><td>44.85203</td><td>65.50311</td><td>0.81</td><td><span class="tag c">confirmed</span></td></tr>
+   <tr><td>#16</td><td>18:40:51</td><td>44.85117</td><td>65.50102</td><td>0.64</td><td><span class="tag n">new</span></td></tr>
+   <tr><td>#14</td><td>18:35:30</td><td>44.84862</td><td>65.49920</td><td>0.41</td><td><span class="tag x">rejected</span></td></tr></table>
+   <div class="field" style="margin-top:10px"><label>Include</label><div class="inp">☑ confirmed &nbsp; ☐ new &nbsp; ☐ rejected</div></div>
+   <div class="ctrl" style="padding:12px"><span class="btn">Export CSV</span><span class="btn">Export KML</span><span class="sp"></span></div>
+  </div>
+ </div>
+</div>
+</body></html>
