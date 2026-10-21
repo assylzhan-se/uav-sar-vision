@@ -44,7 +44,7 @@ The following tasks are recorded in YouTrack (project key SAR).
 |---|---|---|---|---|
 | SAR-1 | Repository structure, README, `.gitignore` | Shalmanov | All README sections present | Critical |
 | SAR-2 | Project proposal and scope | Shalmanov | Section 1 reviewed by the supervisor | Critical |
-| SAR-3 | Evidence of relevance (analysis of available data) | Shakalova | Hypotheses H1–H5 mapped to documented sources | Critical |
+| SAR-3 | User discussions (3–5) | Shakalova | Notes for each discussion stored in `docs/interviews/` | Critical |
 | SAR-4 | Literature review | Kurmantaev | ≥ 12 sources, ≥ 8 scientific | Critical |
 | SAR-5 | Existing system comparison | Shalmanov | 3–5 systems, 6–10 criteria, sources cited | Major |
 | SAR-6 | Technology comparison | Kurmantaev | ≥ 3 decisions with 2–3 alternatives each | Major |
@@ -78,7 +78,7 @@ The dates after the first pre-defense are proposed targets and depend on the off
 | R3 | Detection quality below target | Medium | Medium | Staged transfer learning, tiling, threshold tuning | Report the achieved results honestly and analyse the causes |
 | R4 | Live video cannot be obtained from the UAV controller | Medium | Low (extension) | Check the options for the specific UAV model | Process recorded footage after landing (MVP) |
 | R5 | Telemetry is missing or inaccurate | Medium | Medium | Confirm the metadata format with sample files early | Show detections without coordinates; report the error sources |
-| R6 | No direct user feedback before implementation | High | Medium | Evidence from published studies and official reports (Section 2); contact practitioners in the next stage | Expert discussions and an online questionnaire |
+| R6 | User discussions cannot be arranged | Medium | High | Contact several organisations in parallel | Short online questionnaire and expert discussions |
 | R7 | Team workload and missed deadlines | Medium | Medium | Weekly check-ins; tasks with deadlines in YouTrack | Drop *could* requirements first |
 | R8 | Flight restrictions | Medium | Medium | Fly only at permitted sites with a licensed pilot | Use existing recordings |
 
@@ -92,7 +92,7 @@ Several parts of the plan depend on earlier steps:
 
 The next steps after the first pre-defense are:
 
-1. Contact practitioners (police, volunteer search teams, UAV pilots) to validate H2 and H4, and update the requirements.
+1. Hold the user discussions and update the requirements.
 2. Download and convert the datasets.
 3. Evaluate baseline B1.
 4. Start fine-tuning.

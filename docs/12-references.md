@@ -38,19 +38,7 @@
 
 [19] DroneXL, "DJI launches AI-powered Matrice 4 series enterprise drone," Jan. 8, 2025. [Online]. Available: https://dronexl.co/zh/2025/01/08/dji-launches-ai-powered-matrice-4-series-enterprise-drone/ (accessed Oct. 21, 2026).
 
-[20] S. Gotovac, D. Zelenika, Ž. Marušić, and D. Božić-Štulić, "Visual-based person detection for search-and-rescue with UAS: Humans vs. machine learning algorithm," *Remote Sensing*, vol. 12, no. 20, art. 3295, 2020, doi: 10.3390/rs12203295.
-
-[21] Kazinform, "В Казахстане без вести пропали 2 098 человек" [2,098 people are missing in Kazakhstan], Jan. 25, 2024. [Online]. Available: https://www.inform.kz/ru/v-kazahstane-bez-vesti-propali2-098-chelovek-0c538c (accessed Oct. 21, 2026).
-
-[22] Inbusiness.kz, "От дронов до тепловизоров: как технологии спасают жизни в Казахстане" [From drones to thermal imagers: how technology saves lives in Kazakhstan], May 8, 2025. [Online]. Available: https://www.inbusiness.kz/ru/last/ot-dronov-do-teplovizorov-kak-tehnologii-spasayut-zhizni-v-kazahstane (accessed Oct. 21, 2026).
-
-[23] 24.kz, "Дроны с ИИ, вертолёты и камеры: как теперь в МЧС Казахстана спасают людей" [Drones with AI, helicopters and cameras: how the MES of Kazakhstan now rescues people], Oct. 19, 2026. [Online]. Available: https://24.kz/ru/news/social/800204-drony-s-ii-vertoljoty-i-kamery-kak-teper-v-mchs-kazakhstana-spasayut-lyudej (accessed Oct. 21, 2026).
-
-[24] Kazinform, "В Усть-Каменогорске дрон с тепловизором помог найти пропавшую пенсионерку" [In Ust-Kamenogorsk, a drone with a thermal camera helped find a missing pensioner], Jul. 15, 2025. [Online]. Available: https://www.inform.kz/ru/vust-kamenogorske-dron-steplovizorom-pomog-nayti-propavshuyu-pensionerku-4ae0b1 (accessed Oct. 21, 2026).
-
-[25] Air Med & Rescue, "Report identifies challenges of emergency drone use" (on the EENA–DJI report *The use of remotely piloted aircraft systems by the emergency services*), Nov. 11, 2016. [Online]. Available: https://www.airmedandrescue.com/latest/news/report-identifies-challenges-emergency-drone-use (accessed Oct. 21, 2026).
-
-# Appendix A. Question Guide for Future User Discussions
+# Appendix A. Question Guide for User Discussions
 
 1. What is your role, and how often do you take part in search operations?
 2. Which UAVs and cameras (RGB, thermal, zoom) do you use, and what flight data do they record?
