@@ -4,7 +4,7 @@
 
 Sources were found through Google Scholar, IEEE Xplore, MDPI and arXiv. We used search terms such as *UAV search and rescue person detection*, *small object detection aerial images*, *thermal human detection UAV* and *real-time object detection*. We included work on detecting people or small objects in UAV imagery, public datasets suitable for SAR and widely used detection architectures. Most sources are from 2021–2025. A few earlier papers are kept because they introduced methods or datasets that the project builds on directly.
 
-The review uses 16 sources: 15 peer-reviewed publications (11 of them from 2021 or later) and the documentation of the Ultralytics framework. Sources [17]–[19] are used only in the system comparison in Section 4.
+The review uses 17 sources: 16 peer-reviewed publications (11 of them from 2021 or later) and the documentation of the Ultralytics framework. Sources [17]–[19] are used in the system comparison in Section 4, and sources [21]–[25] are public reports used as evidence of relevance in Section 2.
 
 ## 3.2 Analysis of key publications
 
@@ -20,6 +20,7 @@ The review uses 16 sources: 15 peer-reviewed publications (11 of them from 2021 
 | [8] 2021 | Case study of the SARUAV system | Real operation | First documented rescue supported by an automated human detection system | Post-flight analysis | Evidence of relevance; system compared in Section 4 |
 | [9] 2023 | Survey of UAVs for SAR | Literature | Summarises tasks and open challenges in UAV-based SAR | No experiments | Framing of the problem |
 | [10] 2025 | YOLO adapted for small objects in SAR (feature fusion variants, extra P2 head, attention modules) | VisDrone, then HERIDAL | YOLOv5s-PBfpn-Deconv reached mAP@50 of 0.802 on HERIDAL and ran in real time on a Jetson Nano | RGB only | Two-stage transfer learning; reference result for evaluation |
+| [20] 2020 | Comparison of human inspectors with a detection algorithm on SAR aerial images | SAR aerial images; about 48 participants | Unaided participants found 66% of people; algorithm support raised recall to 72% and cut inspection time by about 30%, but increased reliance on the algorithm | One study, Croatian context | Evidence of relevance (Section 2); supports the human review workflow |
 | [11] 2022 | SAHI: slicing images into tiles for training and inference | VisDrone, xView | Slicing at inference raised AP by 5.1–6.8% for the tested detectors, and by up to 14.5% when combined with slice-based fine-tuning | Higher inference time | Tiling for small people (FR-3) |
 | [12] 2024 | RT-DETR: real-time transformer detector | COCO | 53.1% AP at 108 FPS on a T4 GPU (R50 version) | Larger compute needs than small YOLO models | Alternative detector (Section 5) |
 | [13] 2024 | YOLOv10: detection without non-maximum suppression | COCO | Lower latency at comparable accuracy | Limited SAR-specific evidence | Alternative detector (Section 5) |

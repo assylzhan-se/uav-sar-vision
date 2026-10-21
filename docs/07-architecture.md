@@ -1,6 +1,6 @@
 # 7. Architecture and Diagrams
 
-This section describes the proposed architecture. Apart from a draft geolocation module (Section 7.4), none of the components has been implemented yet. The diagrams are drawn in PlantUML. Editable sources are kept in `diagrams/src/` and exported images in `diagrams/png/`.
+This section describes the proposed architecture. Apart from a draft geolocation module (Section 7.4), none of the components has been implemented yet. The diagrams are drawn in PlantUML. Editable sources: https://github.com/assylzhan-se/uav-sar-vision/tree/prob-period-1/diagrams/src. Exported images: https://github.com/assylzhan-se/uav-sar-vision/tree/prob-period-1/diagrams/png.
 
 ## 7.1 System context
 
