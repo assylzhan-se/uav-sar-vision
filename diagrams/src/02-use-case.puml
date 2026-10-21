@@ -1,0 +1,31 @@
+@startuml 02-use-case
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+left to right direction
+title Use Case Diagram - SAR-Vision
+
+actor "UAV operator" as op
+actor "Search coordinator" as co
+
+rectangle "SAR-Vision" {
+  usecase "UC-1 Load input\n(images, video;\nlive stream later)" as UC1
+  usecase "UC-2 Run detection" as UC2
+  usecase "Estimate\ncoordinates" as UC2b
+  usecase "UC-3 Review detections\n(frame, list, map)" as UC3
+  usecase "Receive alert" as UC3a
+  usecase "UC-4 Confirm or\nreject detection" as UC4
+  usecase "UC-5 Export confirmed\nlocations (CSV, KML)" as UC5
+  usecase "UC-6 Adjust confidence\nthreshold" as UC6
+}
+
+op --> UC1
+op --> UC2
+op --> UC3
+op --> UC4
+op --> UC6
+co --> UC3
+co --> UC5
+
+UC2 ..> UC2b : <<include>>
+UC3a ..> UC3 : <<extend>>
+@enduml
