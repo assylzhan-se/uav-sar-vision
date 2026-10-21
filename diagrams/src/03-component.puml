@@ -1,0 +1,45 @@
+@startuml 03-component
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam componentStyle rectangle
+title Component Diagram (draft) - SAR-Vision
+
+folder "Input data\n(images, video,\ntelemetry files)" as input
+
+package "Ground laptop" {
+  package "Backend (Python, FastAPI)" {
+    [Input Reader\n(OpenCV / FFmpeg)] as ingest
+    [Telemetry Parser\n(EXIF/XMP, DJI SRT)] as tele
+    [Detection Service\n(YOLO + optional tiling)] as det
+    [Geolocation Module\n(pixel -> lat/lon)] as geo
+    [Detection Manager\n(threshold, storage,\nevents)] as mgr
+    [Export Module\n(CSV, KML)] as exp
+    [REST API +\nWebSocket] as api
+  }
+  database "SQLite\n(operations,\ndetections)" as db
+  folder "Model weights" as models
+
+  package "Operator interface (browser)" {
+    [Frame viewer] as vp
+    [Map (Leaflet)] as map
+    [Detection list] as list
+  }
+}
+
+input --> ingest : frames
+input --> tele : metadata
+models --> det
+ingest --> det : frames + timestamps
+det --> mgr : boxes + confidence
+tele --> geo : position, altitude,\norientation
+mgr --> geo : box centre
+geo --> mgr : lat / lon
+mgr --> db
+mgr --> api : new detections
+api --> vp
+api --> map
+api --> list
+list --> api : confirm / reject
+api --> exp
+exp --> db
+@enduml
