@@ -1,0 +1,30 @@
+@startuml 01-system-context
+!pragma layout smetana
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+title System Context Diagram - SAR-Vision
+
+actor "UAV operator" as operator
+actor "Search coordinator" as coord
+actor "Ground search team" as ground
+
+rectangle "**SAR-Vision**\nMachine vision system\non a ground laptop" as sys #DDEEFF
+
+node "UAV with camera\n(RGB; thermal optional)" as uav
+node "UAV controller /\nmemory card" as rc
+database "Offline map tiles\n(OpenStreetMap)" as maps
+rectangle "Mapping tools\n(Google Earth, GIS)" as gis
+
+uav --> rc : images, video,\ntelemetry
+rc --> sys : image/video files with\nGPS, altitude, camera angles\n(live stream: extension)
+maps --> sys : base map
+operator --> sys : load data, run detection,\nconfirm / reject
+sys --> operator : detections on\nframe, list and map
+sys --> coord : confirmed locations
+sys --> gis : CSV / KML export
+coord --> ground : locations to check
+@enduml
