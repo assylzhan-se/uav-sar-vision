@@ -99,4 +99,4 @@ Diagrams: edit `diagrams/src/*.puml` with the VS Code PlantUML extension or plan
 
 ## Workflow
 
-YouTrack task `SAR-N` → branch `SAR-N-short-name` → commits `SAR-N: description` → pull request reviewed by another team member → merge into `main`. Submissions are tagged `pre-defense-1`, `pre-defense-2` and `final-pre-defense`.
+YouTrack task `SAR-N` → branch `SAR-N-short-name` → commits `SAR-N: description` → pull request reviewed by another team member → merge into `main`. Submissions are marked with Git tags; the first probationary-period submission is tagged `prob-period-1`.

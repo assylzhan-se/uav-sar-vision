@@ -42,6 +42,7 @@ Test data is never used for training or for choosing thresholds.
 | B1: YOLO pretrained on COCO, person class only, no fine-tuning | Shows the effect of SAR-specific training |
 | B2: Fine-tuned model without tiling | Shows the effect of tiling on small people |
 | B3: Published result of [10] on HERIDAL (mAP@50 = 0.802) | Places our result relative to recent work; differences in setup will be noted |
+| B4: Published human performance from [20] (unaided recall 66%) | Indicates whether the detector could help operators; not directly comparable because the image sets differ |
 
 A small comparison with manual review (time taken and people found by volunteers on the same footage) may be added if time permits. It is not part of the acceptance criteria.
 

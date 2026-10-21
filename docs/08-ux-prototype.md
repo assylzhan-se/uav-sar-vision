@@ -1,6 +1,6 @@
 # 8. UX and Prototype
 
-The prototype consists of static mockups of the operator interface, made in HTML. They show the intended workflow and are not screenshots of a working system. All coordinates, file names and detections shown are illustrative. The mockup source is `prototype/mockups.html`, and exported images are in `prototype/`.
+The prototype consists of static mockups of the operator interface, made in HTML. They show the intended workflow and are not screenshots of a working system. All coordinates, file names and detections shown are illustrative. The mockup source is https://github.com/assylzhan-se/uav-sar-vision/blob/prob-period-1/prototype/mockups.html, and the exported images are in https://github.com/assylzhan-se/uav-sar-vision/tree/prob-period-1/prototype. To view the HTML mockups, download the file and open it in a browser.
 
 ## 8.1 Operator workflow
 
