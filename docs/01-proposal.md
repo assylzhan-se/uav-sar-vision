@@ -20,17 +20,17 @@ Unmanned aerial vehicles (UAVs) are increasingly used in search and rescue (SAR)
 - In poor lighting or partial vegetation cover, people are harder to see in visible-light (RGB) imagery. Thermal imagery can help in these conditions but has its own limitations [4], [6].
 - After a possible person is spotted, the operator still needs to estimate where that point is on the ground so that a ground team can be sent.
 
-Published work shows that automated person detection can support this process. For example, the SARUAV system contributed to locating a missing person during a real operation in Poland [8]. At the same time, detecting very small objects, limiting false alarms and processing data quickly on field hardware remain open problems [9], [10].
+In Kazakhstan, 2,098 people were registered as missing in early 2024 [21], and the Ministry of Emergency Situations used drones in about 5,000 operations in 2026 [23]. Published work shows that automated person detection can support this process. For example, the SARUAV system contributed to locating a missing person during a real operation in Poland [8]. At the same time, detecting very small objects, limiting false alarms and processing data quickly on field hardware remain open problems [9], [10].
 
 ## 1.3 Target users
 
 | User | Need |
 |---|---|
-| UAV operator in a rescue unit or volunteer search team | Be alerted to possible people in the footage instead of reviewing every frame manually |
+| UAV operator in a police unit, volunteer search team or regional rescue unit that uses standard drones without built-in AI detection | Be alerted to possible people in the footage instead of reviewing every frame manually |
 | Search coordinator | See reviewed detections on a map and pass locations to ground teams |
 | Ground search team (indirect user) | Receive approximate coordinates of a location to check |
 
-These user groups are based on the literature and on the team's understanding of SAR work. They have not yet been validated with users; the plan for this is described in Section 2.
+These user groups are based on the literature and on public reports from Kazakhstan (Section 2). The Ministry of Emergency Situations already has AI-equipped drones on part of its fleet [23], so the project focuses on teams without such equipment and on vendor-independent review of recorded footage. The user groups have not yet been validated in discussions with users.
 
 ## 1.4 Aim and objectives
 
