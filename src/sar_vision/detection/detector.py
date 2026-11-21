@@ -1,5 +1,11 @@
 """Person detector: YOLO (pretrained on COCO, baseline B1) with optional SAHI tiling.
 
+Three ready-made modes (measured on 40 VisDrone val images, see docs/results-baseline.md):
+
+    fast      whole frame at 640 px      recall 0.22   ~0.2 s/img on CPU
+    balanced  whole frame at 1280 px     recall 0.42   ~0.6 s/img on CPU
+    accurate  SAHI tiles of 416 px       recall 0.51   ~2.7 s/img on CPU
+
 Fine-tuning on VisDrone -> HERIDAL/SARD comes later; only the weights file will change.
 """
 from __future__ import annotations
@@ -14,28 +20,46 @@ from .schema import Detection
 PERSON_CLASS_ID = 0  # "person" in COCO
 ImageInput = Union[str, Path, np.ndarray]
 
+MODES: dict[str, dict] = {
+    "fast": {"tiling": False, "imgsz": 640},
+    "balanced": {"tiling": False, "imgsz": 1280},
+    "accurate": {"tiling": True, "tile": 416, "imgsz": 640},
+}
+DEFAULT_MODE = "balanced"
+
 
 class PersonDetector:
     """Finds people in an image.
 
-    tiling=False: the whole frame is resized to the model input (fast, misses small people).
+    tiling=False: the whole frame is resized to `imgsz` (fast, misses small people).
     tiling=True:  the frame is cut into overlapping tiles with SAHI (slower, finds small people).
     """
 
     def __init__(self, weights: str = "yolov8s.pt", conf: float = 0.25, tiling: bool = False,
-                 tile: int = 640, overlap: float = 0.2, device: str | None = None) -> None:
+                 tile: int = 640, overlap: float = 0.2, imgsz: int = 640,
+                 device: str | None = None) -> None:
         if not 0.0 < conf < 1.0:
             raise ValueError("conf must be between 0 and 1")
         if not 0.0 <= overlap < 1.0:
             raise ValueError("overlap must be in [0, 1)")
+        if tile < 64 or imgsz < 64:
+            raise ValueError("tile and imgsz must be at least 64 px")
         self.weights = weights
         self.conf = conf
         self.tiling = tiling
         self.tile = tile
         self.overlap = overlap
+        self.imgsz = imgsz
         self.device = device
         self._yolo = None
         self._sahi = None
+
+    @classmethod
+    def from_mode(cls, mode: str = DEFAULT_MODE, **kwargs) -> "PersonDetector":
+        """Create a detector from a named mode: fast, balanced or accurate."""
+        if mode not in MODES:
+            raise ValueError(f"unknown mode {mode!r}, expected one of {list(MODES)}")
+        return cls(**{**MODES[mode], **kwargs})
 
     # -- public -------------------------------------------------------------------------------
     def detect(self, image: ImageInput, frame: int = 0) -> list[Detection]:
@@ -45,12 +69,15 @@ class PersonDetector:
         return self._detect_full(img, frame)
 
     # -- internals ----------------------------------------------------------------------------
-    def _detect_full(self, img: np.ndarray, frame: int) -> list[Detection]:
+    def _load_yolo(self):
         if self._yolo is None:
             from ultralytics import YOLO
             self._yolo = YOLO(self.weights)
-        res = self._yolo(img, conf=self.conf, classes=[PERSON_CLASS_ID], device=self.device,
-                         verbose=False)[0]
+        return self._yolo
+
+    def _detect_full(self, img: np.ndarray, frame: int) -> list[Detection]:
+        res = self._load_yolo()(img, conf=self.conf, imgsz=self.imgsz, classes=[PERSON_CLASS_ID],
+                                device=self.device, verbose=False)[0]
         return [Detection(*map(float, xyxy), confidence=float(c), frame=frame)
                 for xyxy, c in zip(res.boxes.xyxy.tolist(), res.boxes.conf.tolist())]
 
@@ -60,7 +87,8 @@ class PersonDetector:
             from sahi import AutoDetectionModel
             self._sahi = AutoDetectionModel.from_pretrained(
                 model_type="ultralytics", model_path=self.weights,
-                confidence_threshold=self.conf, device=self.device or "cpu")
+                confidence_threshold=self.conf, device=self.device or "cpu",
+                image_size=self.imgsz)
         rgb = img[:, :, ::-1].copy()  # SAHI expects RGB, OpenCV gives BGR
         result = get_sliced_prediction(
             rgb, self._sahi, slice_height=self.tile, slice_width=self.tile,
@@ -70,8 +98,10 @@ class PersonDetector:
             if p.category.id != PERSON_CLASS_ID:
                 continue
             b = p.bbox
+            if b.maxx <= b.minx or b.maxy <= b.miny:
+                continue
             dets.append(Detection(float(b.minx), float(b.miny), float(b.maxx), float(b.maxy),
-                                  confidence=float(p.score.value), frame=frame))
+                                  confidence=min(1.0, float(p.score.value)), frame=frame))
         return dets
 
 

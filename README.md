@@ -40,15 +40,36 @@ People in UAV imagery are often tiny, and reviewing hundreds of photos or long v
 
 ## Current status
 
-Stage 1: analysis and design (first pre-defense, 24 October 2026).
+Stage 2: working prototype (meeting 22 November 2026).
 
-| Done | In progress | Next |
+| Module | Owner | What works |
 |---|---|---|
-| Proposal, literature review, system and technology comparisons, requirements, diagrams, mockups, verification plan, draft geolocation module with unit tests | User discussions, supervisor review | Dataset preparation, baseline evaluation |
+| CV (`src/sar_vision/detection`) | Shalmanov Assylzhan | YOLOv8 person detection, 3 modes (fast / balanced / accurate with SAHI), video processing with a tracker, evaluation on VisDrone ([results](docs/results-baseline.md)) |
+| Backend (`backend/`) | Kurmantayev Ali | REST API, SQLite, geolocation, telemetry from EXIF/DJI XMP, video upload, history, CSV/KML export, statistics |
+| Frontend (`frontend/`) | Shakalova Diana | Operator screen: upload photo or video, mode and threshold, boxes, list with filters, map, history, export |
+
+## Quick start (demo)
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate              # Linux/macOS: source .venv/bin/activate
+pip install -r requirements.txt
+pip install -e .                     # makes `sar_vision` importable everywhere
+python scripts/check.py              # MUST end with "ALL CHECKS PASSED"
+
+uvicorn app.main:app --app-dir backend          # terminal 1, http://localhost:8000/docs
+cd frontend && npm install && npm run dev       # terminal 2, http://localhost:5173
+```
+
+The header must show a green **"Сервер подключён · детектор YOLOv8"**. Yellow "mock" or red
+"Сервер недоступен" means the demo is NOT using the real model.
+
+CV only: `python -m sar_vision.detection --image frame.jpg --compare` (all modes),
+`python -m sar_vision.detection --video flight.mp4 --every 1`.
 
 ## Technologies (provisional)
 
-Python, PyTorch, Ultralytics YOLO, SAHI, OpenCV, FastAPI, WebSocket, SQLite, Leaflet, React or Vue (undecided), PlantUML. See [docs/05-technology-comparison.md](docs/05-technology-comparison.md).
+Python, PyTorch, Ultralytics YOLOv8, SAHI, OpenCV, FastAPI, SQLite, Pillow (EXIF), React 19 + Vite, Leaflet, Vitest, pytest, PlantUML. See [docs/05-technology-comparison.md](docs/05-technology-comparison.md).
 
 ## Links
 
@@ -79,20 +100,13 @@ tests/          automated tests (pytest)
 config/         example configuration (no secrets)
 ```
 
-## Setup and tests
+## Tests
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-pytest                           # runs the geolocation unit tests
-```
-
-Baseline detection demo (pretrained YOLO, person class):
-
-```bash
-cd src
-python -m sar_vision.detect_demo --image path/to/frame.jpg --tiling
+python scripts/check.py      # all: CV + backend + frontend + live server with the real model
+pytest                       # CV only
+pytest backend/tests         # backend only
+cd frontend && npm test      # frontend only
 ```
 
 Diagrams: edit `diagrams/src/*.puml` with the VS Code PlantUML extension or plantuml.com and export PNG files to `diagrams/png/`.
