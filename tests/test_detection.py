@@ -49,6 +49,21 @@ def test_detector_rejects_bad_parameters():
         PersonDetector(conf=1.5)
     with pytest.raises(ValueError):
         PersonDetector(overlap=1.0)
+    with pytest.raises(ValueError):
+        PersonDetector(tile=10)
+
+
+def test_modes_are_presets():
+    from sar_vision.detection import MODES
+    assert set(MODES) == {"fast", "balanced", "accurate"}
+    fast = PersonDetector.from_mode("fast")
+    assert (fast.tiling, fast.imgsz) == (False, 640)
+    balanced = PersonDetector.from_mode("balanced")
+    assert (balanced.tiling, balanced.imgsz) == (False, 1280)
+    accurate = PersonDetector.from_mode("accurate", conf=0.3)
+    assert (accurate.tiling, accurate.tile, accurate.conf) == (True, 416, 0.3)
+    with pytest.raises(ValueError):
+        PersonDetector.from_mode("turbo")
 
 
 def test_load_image_errors(tmp_path: Path):
