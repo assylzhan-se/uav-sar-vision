@@ -1,0 +1,10 @@
+{
+  "note": "Example response of POST /api/detect (docs/api-contract.md) for a 1920x1080 frame. Used while the backend is not running.",
+  "image_id": 1,
+  "width": 1920,
+  "height": 1080,
+  "detections": [
+    { "id": 1, "image_id": 1, "frame": 0, "bbox": [576, 432, 634, 518], "confidence": 0.91, "lat": 43.23899, "lon": 76.88958, "status": "new" },
+    { "id": 2, "image_id": 1, "frame": 0, "bbox": [1190, 594, 1248, 670], "confidence": 0.47, "lat": 43.23886, "lon": 76.88986, "status": "new" }
+  ]
+}
